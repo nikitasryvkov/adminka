@@ -1,33 +1,42 @@
 #!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
 set -e
 
-# Установка необходимых пакетов
-echo "Установка OpenSSH, JDK, Maven, Git, Nginx..."
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y openssh-server openjdk-17-jdk maven git nginx
+# Update and upgrade system
+echo "Updating system packages..."
+sudo apt-get update
+sudo apt-get upgrade -y
 
-# Создание директорий и настройка прав
-echo "Создание рабочих директорий..."
-mkdir -p /home/$(whoami)/adm-app
+# Install required packages
+echo "Installing dependencies..."
+sudo apt-get install -y openjdk-17-jdk maven git nginx
+
+# Verify installations
+echo "Java version:"
+java -version
+echo "Maven version:"
+mvn --version
+
+# Create application directories
+echo "Creating directories..."
 sudo mkdir -p /var/www/adm-app
-sudo chown -R $(whoami):$(whoami) /var/www/adm-app
+sudo chown -R niksr:niksr /var/www/adm-app
+mkdir -p /home/niksr/adm-app
 
-# Клонирование репозитория
-cd /home/$(whoami)/adm-app
-echo "Клонирование репозитория..."
-git clone https://github.com/nikitasryvkov/adminka.git 
+# Clone repository and build project
+echo "Cloning and building application..."
+cd /home/niksr/adm-app
+git clone https://github.com/nikitasryvkov/adminka.git
 cd adminka
-
-# Сборка проекта
-echo "Сборка Maven проекта..."
 mvn clean package
 
-# Размещение jar-файла
-echo "Копирование JAR файла..."
+# Copy built JAR
+echo "Deploying application..."
 sudo cp target/nginx-0.0.1-SNAPSHOT.jar /var/www/adm-app.jar
 
-# Создание systemd-сервиса
-echo "Создание systemd-сервиса..."
+# Create systemd service
+echo "Configuring systemd service..."
 sudo tee /etc/systemd/system/springapp.service > /dev/null <<EOL
 [Unit]
 Description=Spring Boot Adm App Service
@@ -45,18 +54,17 @@ Environment=SPRING_PROFILES_ACTIVE=prod
 WantedBy=multi-user.target
 EOL
 
-# Перезагрузка systemd и запуск сервиса
-echo "Настройка сервиса..."
+# Reload and enable service
 sudo systemctl daemon-reload
 sudo systemctl enable springapp
 sudo systemctl start springapp
 
-# Настройка Nginx
-echo "Настройка Nginx..."
+# Configure Nginx
+echo "Configuring Nginx..."
 sudo tee /etc/nginx/sites-available/springapp > /dev/null <<EOL
 server {
     listen 80;
-    server_name $(hostname);
+    server_name localhost;
 
     location / {
         proxy_pass http://localhost:5000;
@@ -68,16 +76,19 @@ server {
 }
 EOL
 
-sudo ln -sf /etc/nginx/sites-available/springapp /etc/nginx/sites-enabled/
+# Enable Nginx configuration
+sudo ln -s /etc/nginx/sites-available/springapp /etc/nginx/sites-enabled/
+
+# Test and restart services
+echo "Finalizing configuration..."
 sudo nginx -t
 sudo systemctl restart nginx
+sudo systemctl restart springapp
 
-# Проверка статуса сервисов
-echo "Проверка статуса сервисов..."
-sudo systemctl status springapp --no-pager
-sudo systemctl status nginx --no-pager
+# Display status
+echo "Application status:"
+sudo systemctl status springapp
+echo "Nginx status:"
+sudo systemctl status nginx
 
-# Проверка прав на jar-файл
-ls -l /var/www/adm-app.jar
-
-echo "Установка завершена! Приложение доступно по адресу http://$(hostname -I | awk '{print $1}')"
+echo "Deployment completed successfully!"
