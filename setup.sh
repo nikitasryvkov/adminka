@@ -38,7 +38,7 @@ ExecStart=/usr/bin/java -jar adm-app.jar
 Restart=always
 RestartSec=5
 SyslogIdentifier=springapp
-User=$(whoami)
+User=niksr
 Environment=SPRING_PROFILES_ACTIVE=prod
 
 [Install]
@@ -56,7 +56,7 @@ echo "Настройка Nginx..."
 sudo tee /etc/nginx/sites-available/springapp > /dev/null <<EOL
 server {
     listen 80;
-    server_name 127.0.0.1;
+    server_name $(hostname);
 
     location / {
         proxy_pass http://localhost:5000;
