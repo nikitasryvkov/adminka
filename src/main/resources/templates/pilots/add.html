@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Pilot</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Add Pilot</h1>
+    <form th:action="@{/pilots/add}" th:object="${pilot}" method="post">
+        <div>
+            <label>First Name:</label>
+            <input type="text" th:field="*{firstName}" required>
+        </div>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" th:field="*{lastName}" required>
+        </div>
+        <div>
+            <label>Age:</label>
+            <input type="number" th:field="*{age}" required>
+        </div>
+        <div>
+            <label>Cup:</label>
+            <input type="number" th:field="*{cup}" required>
+        </div>
+        <div>
+            <label>Team:</label>
+            <select th:field="*{teamId}">
+                <option value="">Select Team</option>
+                <option 
+                    th:each="team : ${teams}" 
+                    th:value="${team.id}" 
+                    th:text="${team.title}"
+                    th:selected="${team.id == null} ? 'selected' : null">
+                </option>
+            </select>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+    <button>
+        <a class="text" th:href="@{/pilots}">Back to List</a>
+    </button>
+</body>
+</html>

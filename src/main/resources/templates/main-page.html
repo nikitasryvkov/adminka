@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formula 1 Management</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <header>
+        <h1>Formula 1 Management System</h1>
+    </header>
+
+    <h2>Manage Pilots</h2>
+    <div class="page">
+        <button>
+            <a class="text" th:href="@{/pilots}">View Pilots</a>
+        </button>
+        <button>
+            <a class="text" th:href="@{/pilots/add}">Add New Pilot</a>
+        </button>
+    </div>
+
+    <h2>Manage Teams</h2>
+    <div class="page">
+        <button>
+            <a class="text" th:href="@{/teams}">View Teams</a>
+        </button>
+        <button>
+            <a class="text" th:href="@{/teams/add}">Add New Team</a>
+        </button>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Formula 1 Management System</p>
+    </footer>
+</html>

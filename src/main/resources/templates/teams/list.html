@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Teams</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Teams</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Country</th>
+            <th>Constructor Cup</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="team : ${teams}">
+            <td th:text="${team.id}"></td>
+            <td th:text="${team.title}"></td>
+            <td th:text="${team.country}"></td>
+            <td th:text="${team.constructorCup}"></td>
+            <td>
+                <a th:href="@{/teams/delete/{id}(id=${team.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <button>
+        <a class="text" th:href="@{/}">Home</a>
+    </button>
+    <button>
+        <a class="text" th:href="@{/teams/add}">Add New Team</a> 
+    </button>
+    <button>
+        <a class="text" th:href="@{/pilots}">View Pilots</a>
+    </button>
+</body>
+</html>

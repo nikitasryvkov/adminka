@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pilots</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Pilots</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Cup</th>
+            <th>Team</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="data : ${pilotData}">
+            <td th:text="${data.pilot.id}"></td>
+            <td th:text="${data.pilot.firstName}"></td>
+            <td th:text="${data.pilot.lastName}"></td>
+            <td th:text="${data.pilot.age}"></td>
+            <td th:text="${data.pilot.cup}"></td>
+            <td th:text="${data.teamName}"></td>
+            <td>
+                <a th:href="@{/pilots/delete/{id}(id=${data.pilot.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <button>
+        <a class="text" th:href="@{/}">Home</a>
+    </button>
+    <button>
+        <a class="text" th:href="@{/pilots/add}">Add New Pilot</a>
+    </button>
+    <button>
+        <a class="text" th:href="@{/teams}">View Teams</a>
+    </button>
+</body>
+</html>

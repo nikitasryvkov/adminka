@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Team</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Add New Team</h1>
+    <form th:action="@{/teams/add}" th:object="${team}" method="post">
+        <div>
+            <label>Title:</label>
+            <input type="text" th:field="*{title}" required>
+        </div>
+
+        <div>
+            <label>Country:</label>
+            <input type="text" th:field="*{country}" required>
+        </div>
+
+        <div>
+            <label>Constructor Cups:</label>
+            <input type="number" th:field="*{constructorCup}" min="0" required>
+        </div>
+
+        <button type="submit">Add Team</button>
+    </form>
+    <button>
+        <a class="text" th:href="@{/teams}">Back to Teams List</a>
+    </button>
+</body>
+</html>

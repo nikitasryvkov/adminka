@@ -1,0 +1,222 @@
+:root {
+    --f1-red: #e10600;
+    --racing-black: #000000;
+    --pure-white: #ffffff;
+    --carbon-fiber: #2b2b2b;
+    --podium-silver: #c0c0c0;
+}
+
+body {
+    font-family: 'Titillium Web', sans-serif;
+    background-color: var(--racing-black);
+    color: var(--pure-white);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-image: linear-gradient(to right,
+            var(--racing-black) 0%,
+            var(--carbon-fiber) 50%,
+            var(--racing-black) 100%);
+}
+
+header {
+    background-color: var(--f1-red);
+    padding: 1.5rem 0;
+    text-align: center;
+    border-bottom: 4px solid var(--pure-white);
+    position: relative;
+    overflow: hidden;
+}
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: repeating-linear-gradient(45deg,
+            var(--pure-white),
+            var(--pure-white) 10px,
+            var(--f1-red) 10px,
+            var(--f1-red) 20px);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav ul li a {
+    color: var(--pure-white);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--pure-white);
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+nav ul li a:hover {
+    background-color: var(--pure-white);
+    color: var(--f1-red);
+    transform: scale(1.05);
+}
+
+h1,
+h2,
+h3 {
+    color: var(--pure-white);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 2rem 0;
+    position: relative;
+}
+
+h1::after {
+    content: "⚡";
+    position: absolute;
+    right: -30px;
+    top: -10px;
+    font-size: 1.5rem;
+}
+
+table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: var(--carbon-fiber);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(225, 6, 0, 0.3);
+}
+
+table th {
+    background-color: var(--f1-red);
+    color: var(--pure-white);
+    padding: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--podium-silver);
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+table tr:hover {
+    background-color: rgba(225, 6, 0, 0.1);
+}
+
+button,
+input[type="submit"] {
+    background-color: var(--f1-red);
+    color: var(--pure-white);
+    border: 2px solid var(--pure-white);
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    border-radius: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--pure-white);
+    color: var(--f1-red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--carbon-fiber);
+    border-radius: 8px;
+    border: 2px solid var(--f1-red);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--podium-silver);
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: var(--racing-black);
+    border: 1px solid var(--f1-red);
+    color: var(--pure-white);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.stats-banner {
+    background-color: var(--f1-red);
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 80%;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.card {
+    background: var(--carbon-fiber);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 2px solid var(--f1-red);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+a.text:active,
+a.text {
+    text-decoration: none;
+    color: white;
+}
+
+a.text:active,
+a.text:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
