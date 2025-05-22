@@ -24,7 +24,7 @@ mvn clean package
 
 # Размещение jar-файла
 echo "Копирование JAR файла..."
-sudo cp target/adm-0.0.1-SNAPSHOT.jar /var/www/adm-app.jar
+sudo cp target/nginx-0.0.1-SNAPSHOT.jar /var/www/adm-app.jar
 
 # Создание systemd-сервиса
 echo "Создание systemd-сервиса..."
