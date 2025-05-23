@@ -23,7 +23,7 @@ sudo systemctl status springapp
 
 sudo chmod 777 /var/www/nginx.jar
 
-ls -l /var/www/app.jar
+ls -l /var/www/nginx.jar
 
 sudo echo -e "server { \n\tlisten 80;\n\tserver_name 192.168.56.101;" > /etc/nginx/sites-available/springapp
 sudo echo -e "\tlocation / {\n\t\tproxy_pass http://localhost:5000;\n\t\tproxy_set_header Host \$host;\n\t\tproxy_set_header X-Real-IP \$remote_addr;" >> /etc/nginx/sites-available/springapp
