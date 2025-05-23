@@ -1,32 +1,25 @@
-#!/bin/bash
 set -e
 
-# Установка необходимых пакетов
 echo "Установка OpenSSH, JDK, Maven, Git, Nginx..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y openssh-server openjdk-17-jdk maven git nginx
 
-# Создание директорий и настройка прав
 echo "Создание рабочих директорий..."
 mkdir -p /home/niksr/nginx
 sudo mkdir -p /var/www/nginx
 sudo chown -R niksr:niksr /var/www/nginx
 
-# Клонирование репозитория
 cd /home/niksr/nginx
 echo "Клонирование репозитория..."
 git clone https://github.com/nikitasryvkov/adminka.git 
 cd adminka
 
-# Сборка проекта
 echo "Сборка Maven проекта..."
 mvn clean package
 
-# Размещение jar-файла
 echo "Копирование JAR файла..."
 sudo cp target/nginx-0.0.1-SNAPSHOT.jar /var/www/nginx.jar
 
-# Создание systemd-сервиса
 echo "Создание systemd-сервиса..."
 sudo nano /etc/systemd/system/springapp.service > /dev/null <<EOL
 [Unit]
@@ -45,13 +38,11 @@ sudo nano /etc/systemd/system/springapp.service > /dev/null <<EOL
   WantedBy=multi-user.target
 EOL
 
-# Перезагрузка systemd и запуск сервиса
 echo "Настройка сервиса..."
 sudo systemctl daemon-reload
 sudo systemctl enable springapp
 sudo systemctl start springapp
 
-# Настройка Nginx
 echo "Настройка Nginx..."
 sudo tee /etc/nginx/sites-available/springapp > /dev/null <<EOL
 server {
@@ -72,12 +63,10 @@ sudo ln -sf sudo ln -s /etc/nginx/sites-available/springapp /etc/nginx/sites-ena
 sudo nginx -t
 sudo systemctl restart nginx
 
-# Проверка статуса сервисов
 echo "Проверка статуса сервисов..."
 sudo systemctl status springapp --no-pager
 sudo systemctl status nginx --no-pager
 
-# Проверка прав на jar-файл
 ls -l /var/www/adm-app.jar
 
 echo "Установка завершена! Приложение доступно по адресу http://$(hostname -I | awk '{print $1}')"
